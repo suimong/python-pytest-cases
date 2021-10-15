@@ -223,7 +223,16 @@ def get_host_module(a):
     if inspect.ismodule(a):
         return a
     else:
-        return import_module(a.__module__)
+        try:
+            return import_module(a.__module__)
+        except ImportError:
+            # The function is here but its module cant be imported ? probably because  --import-mode=importlib .
+            # See https://github.com/smarie/python-pytest-cases/issues/233
+            class ModuleMock(object):
+                pass
+            module_mock = ModuleMock()
+            module_mock.__dict__ = a.__globals__
+            return module_mock
 
 
 def in_same_module(a, b):
