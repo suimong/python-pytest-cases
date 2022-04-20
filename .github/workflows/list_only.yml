@@ -4,11 +4,11 @@ on:
   # this one is to trigger the workflow manually from the interface
   workflow_dispatch:
 
-  # push:
-  #   tags:
-  #     - '*'
-  #   branches:
-  #     - main
+  push:
+    tags:
+      - '*'
+    branches:
+      - dev-benny
   # pull_request:
   #   branches:
   #     - main
